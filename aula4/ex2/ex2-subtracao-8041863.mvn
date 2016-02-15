@@ -1,0 +1,30 @@
+; Programa de ilustração para chamada de sub-rotina
+; int subtrair(int x, int y) {
+; return x - y;
+; }
+;
+0000 0100 ; Ponto de entrada: pulo para as instruções
+; Constantes do programa
+0010 0010 ; A = 0x0010 (16)
+0012 0064 ; B = 0x0064 (100)
+; Variáveis do programa
+0014 0000 ; RESULTADO de subtrair() = 0xFFAC (-84) 
+; Programa principal
+; Chamando SUBTRAIR(A, B)
+0100 8010 ; Carrega o conteúdo de A no acumulador
+0102 903C ; Armazena no parâmetro X
+0104 8012 ; Carrega o conteúdo de B
+0106 903E ; Armazena no parâmetro Y
+0108 A140 ; Chama a sub-rotina SUBTRAIR
+010A 9014 ; Armazena o resultado em RESULTADO
+010C C01C ; Para em 0x01C
+;
+; Sub-rotina SUBTRAIR
+; Parâmetros formais
+013C 0000 ; X
+013E 0000 ; Y
+; Corpo da sub-rotina
+0140 0000 ; Endereço de retorno
+0142 803C ; Carrega o conteúdo de X
+0144 503E ; Subtrai Y, resultado no ACUMULADOR
+0146 B140 ; Retorna para o endereço contido em 0x040

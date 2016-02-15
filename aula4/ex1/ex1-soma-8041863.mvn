@@ -1,0 +1,14 @@
+; Soma os valores de duas posições de memória e guarda o
+; resultado em outra posição de memória, parando na
+; instrução final.
+0000 0100 ; Ponto de entrada: salto para as instruções
+; Constantes do programa
+0012 FF91 ; A = 0xFF91 (-111)
+0014 014D ; B = 0x014D (333)
+; Variáveis do programa
+0016 0000 ; RESULTADO deverá ser 0x00DE (222)
+; Instruções do programa
+0100 8012 ; Carrega o valor de A no acumulador
+0102 4014 ; Adiciona B ao conteúdo do acumulador
+0104 9016 ; Armazena o resultado em RESULTADO
+0106 C00E ; Para em 0x000E

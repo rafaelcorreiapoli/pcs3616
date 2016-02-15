@@ -1,0 +1,59 @@
+0000 0100 ; Pula para o início das instruções
+; =======================
+; Area de dados
+; ======================
+0002 0100 ; Constante 100
+0004 001E ; Constante 30
+0006 0007 ; Numero A
+0008 0054 ; Numero 
+; =======================
+; Programa
+; ======================
+0100 D000 ; Lẽ do teclado
+0102 9900 ; Acumulador -> X
+0104 A906 ; Chama subrotina
+
+; =======================
+; Sub Rotina -> dividir em 2 bytes
+; @0900 (X)
+; ======================
+; int converter(x) {
+;	return {
+;		0902: __--
+;		0904: --__
+;	}
+; }
+;
+; Parãmetros
+0900 0000 ; X 
+; Resultados
+0902 0000 ; dezena de X
+0904 0000 ; unidade de X
+; <Corpo da Subrotina>
+0906 0000 ; Endereço de retorno
+0908 8900 ; Carrega X no acumulador
+090A 7100 ; Divide X por 0x100
+090C 9902 ; Guarda a DEZENA de X
+090E 8900 ; Carrega X no acumulador
+0910 6100 ; Multiplica X por 0x100
+0910 7100 ; Divide X por 0x100
+090C 9904 ; Guarda a UNIDADE de X
+090E B906 ; Retorna para o endereço contido em 0x0906
+; </Corpo da Subrotina>
+; =======================
+; Sub Rotina -> converter de ASCII para HEXA
+; @0A00
+; ======================
+; Parâmetros
+0A00 0000 ; X
+; Resultado
+0A02 0000 ; Resultado
+; <Corpo da Subrotina>
+0A04 0000 ; Endereço de Retorno
+0A06 8A00 ; Carrega X no acumulador
+0A08 501E ; Subtrai 30
+0A0A 9A02 ; Acumulador -> Resultado
+0A1B BA04 ; Retorna para o endereço contido em 0x0A04
+; </Corpo da Subrotina>
+
+
