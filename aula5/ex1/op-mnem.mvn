@@ -1,0 +1,70 @@
+0000 0400 ; Pula para o inicio das instrucoes
+; CONSTANTES
+0002 0001 ; CTE 1
+0004 0002 ; CTE 2
+0006 00A0 ; POSICAO DO INICIO DA LISTA
+0008 8000 ; INSTRUCAO DE CARREGAR
+000A 4A50 ; CTE PARA TESTES +_ --> 5
+
+0010 0000 ; OPCODE
+0012 0000 ; MNEM
+0014 0000 ; POSICAO ATUAL DO LOOP
+
+; LISTA DE MNEMONICOS
+00A0 0000  ; Constante: INICIO DA LISTA
+00A2 4A50  ; Constante: JP 1
+00A4 4A5A  ; Constante: JZ 2
+00A6 4A4E  ; Constante: JN 3
+00A8 4C56  ; Constante: LV 4
+00AA 2B5F  ; Constante: +_ 5
+00AB 2D5F  ; Constante: -_ 6
+00AC 2A5F  ; Constante: *_ 7
+00AD 2F5F  ; Constante: /_ 8
+00AE 4C44  ; Constante: LD 9
+00B0 4D4D  ; Constante: MM 10
+00B2 5343  ; Constante: SC 11
+00B4 5253  ; Constante: RS 12
+00B6 484D  ; Constante: HM 13
+00B8 4744  ; Constante: GD 14
+00BA 5044  ; Constante: PD 15
+00BC 4F53  ; Constante: OS 16
+
+; Sub-rotina OP2MNEM
+; Corpo da sub-rotina
+0100 0000 ; Endereço de retorno
+0102 8010 ; Carrega o conteúdo de OPCODE
+0104 6004 ; Multiplica por 2
+0106 4006 ; Soma com a posição do inicio da lista
+0108 4008 ; Soma com a instrução de carregar
+010A 910C ; ESCREVE NA PROXIMA POSICAO 
+010C 0000 ; ESPERA INSTRUCAO
+010E B100 ; RETORNA DA SUBROTINA
+
+; Sub-Rotina MNEM2OP
+; Corpo da sub-rotina
+0200 0000 ; Endereço de retorno
+0202 8006 ; Carrega posicao do inicio da lista
+0204 4004 ; Soma 2  <--- inicio do loop
+0206 9014 ; Guarda POSICAO ATUAL
+0208 4008 ; Soma com a instrução de carregar
+020A 920C ; Escreve na próxima posição
+020C 0000 ; Aqui carregamos o mnem da Posição atual
+020E 5012 ; Subtrai do MNEM
+0210 1216 ; Deu zero, pula pra 324 (achou o correto)
+0212 8014 ; Retoma posicao atual
+0214 0204 ; Volta pro inicio do loop
+0216 8014 ; Achou o correto -> retoma posicao atual
+0218 5006 ; subtrai o offset da lista
+021A 7004 ; divide por 2
+021C B200 ; retorna da subrotina
+
+; PROGRAMA
+0300 8002 ; CARREGA 1 NO ACM
+0302 9010 ; coloca no parametro da subrotina
+0304 A100 ; Chama subrotina
+0306 C306 ; end
+
+0400 800A ; CARREGA +_ NO ACM
+0402 9012 ; coloca no parametro da subrotina
+0404 A200 ; chama subrotina
+0406 C406 ; end
